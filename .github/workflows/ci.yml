@@ -18,27 +18,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Docker Compose Setup: Container bauen
-      - name: Build Docker Container
-        run: make build
+      # 2. Docker login
+      - name: Login to docker
+        run: echo "${{ secrets.DOCKER_PAT }}" | docker login -u "${{ secrets.DOCKER_USER_NAME }}" --password-stdin
 
-      # 3. Installiere Composer-Abhängigkeiten
+      # 3. Docker image pull
+      - name: Login to docker
+        run: docker pull lane4digital/lane4-php-cli:latest
+
+      # 4. Installiere Composer-Abhängigkeiten
       - name: Install dependencies
         run: make install
 
-      # 4. Überprüfe Coding Standards (PHP_CodeSniffer)
+      # 5. Überprüfe Coding Standards (PHP_CodeSniffer)
       - name: Check Code Standards with PHPCS
         run: make phpcs
 
-      # 5. PHPUnit Tests mit Coverage starten
+      # 6. PHPUnit Tests mit Coverage starten
       - name: Run PHPUnit Tests with Coverage
         run: make phpunit-coverage
 
-      # 6. Statische Codeanalyse ausführen
+      # 7. Statische Codeanalyse ausführen
       - name: Run PHPStan (Static Analysis)
         run: make phpstan
 
-      # 7. Docker Umgebung herunterfahren, falls erforderlich
+      # 8. Docker Umgebung herunterfahren, falls erforderlich
       - name: Tear Down Docker Environment
         if: always()
         run: make remove

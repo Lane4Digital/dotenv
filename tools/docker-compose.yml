@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       args:
           PHP_BASE_IMAGE: ${PHP_BASE_IMAGE}
-    image: ${COMPOSE_PROJECT_NAME}-php-cli
+    image: ${DOCKER_REPO}/${COMPOSE_PROJECT_NAME}-php-cli
     container_name: ${COMPOSE_PROJECT_NAME}-php-cli
     volumes:
       - '../.:/app'

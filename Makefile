@@ -24,6 +24,10 @@ build: ## Builds php image
 	@docker images --filter dangling=true -q | xargs -r docker rmi
 .PHONY: build
 
+push: ## Pushes php image to docker repo
+	@docker push lane4digital/lane4-php-cli:latest
+.PHONY: build
+
 remove: ## Stops and removes containers, images, network, volumes and caches
 	$(DOCKER_COMPOSE) down --volumes --remove-orphans --rmi "all"
 	@docker images --filter dangling=true -q | xargs -r docker rmi
