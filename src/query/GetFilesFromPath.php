@@ -12,7 +12,7 @@ class GetFilesFromPath
     /**
      * @param string $pathToEnvFile
      * @param string|null $appEnv
-     * @param array<string> $loadedEnvironments
+     * @param array<string|null> $loadedEnvironments
      * @return array<string>
      */
     public function __invoke(string $pathToEnvFile, ?string $appEnv = null, ?array $loadedEnvironments = []): array

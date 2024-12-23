@@ -26,23 +26,19 @@ jobs:
       - name: Install dependencies
         run: make install
 
-      # 4. Statische Codeanalyse ausführen
-      - name: Run PHPStan (Static Analysis)
-        run: make phpstan
-
-      # 5. Überprüfe Coding Standards (PHP_CodeSniffer)
+      # 4. Überprüfe Coding Standards (PHP_CodeSniffer)
       - name: Check Code Standards with PHPCS
         run: make phpcs
 
-      # 6. PHPUnit Tests starten
-      - name: Run PHPUnit Tests
-        run: make phpunit
-
-      # 7. PHPUnit Tests mit Coverage starten
+      # 5. PHPUnit Tests mit Coverage starten
       - name: Run PHPUnit Tests with Coverage
         run: make phpunit-coverage
 
-      # 8. Docker Umgebung herunterfahren, falls erforderlich
+      # 6. Statische Codeanalyse ausführen
+      - name: Run PHPStan (Static Analysis)
+        run: make phpstan
+
+      # 7. Docker Umgebung herunterfahren, falls erforderlich
       - name: Tear Down Docker Environment
         if: always()
         run: make remove

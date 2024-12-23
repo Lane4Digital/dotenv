@@ -24,7 +24,7 @@ class GetUserHome
             if (strpos($value, '~') === 0) {
                 $homeDir = $this->getHomeDir();
 
-                if ($homeDir === false) {
+                if (empty($homeDir)) {
                     throw new RuntimeException('HOME environment variable is not set!');
                 }
 
@@ -35,11 +35,13 @@ class GetUserHome
         return $value;
     }
 
-    protected function getHomeDir()
+    protected function getHomeDir(): ?string
     {
-        return ($this->getOsType() === 'Windows')
+        $result = ($this->getOsType() === 'Windows')
             ? getenv(static::HOME_DRIVE) . getenv(static::HOME_PATH)
             : getenv(static::HOME);
+
+        return is_string($result) ? $result : null;
     }
 
     protected function getOsType(): string

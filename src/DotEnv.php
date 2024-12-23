@@ -14,10 +14,9 @@ use Exception;
  */
 class DotEnv implements DotEnvInterface
 {
-    private ?GetFilesFromPath $getFilesFromPath;
-    private ?GetValuesFromFiles $getValuesFromFiles;
-    private ?CastTypeHandler $castTypeHandler;
-
+    private GetFilesFromPath $getFilesFromPath;
+    private GetValuesFromFiles $getValuesFromFiles;
+    private CastTypeHandler $castTypeHandler;
 
     /** @var array<string|null> */
     private array $loadedEnvironments = [];

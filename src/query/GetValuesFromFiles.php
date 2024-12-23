@@ -21,12 +21,14 @@ class GetValuesFromFiles
 
     /**
      * @param array<string> $files
+     * @param bool|null $public
      * @return array<string, mixed>
      * @throws Exception
      */
-    public function __invoke(array $files, bool $public = true): array
+    public function __invoke(array $files, ?bool $public = true): array
     {
         $envValues = [];
+        $public = $public ?? true;
 
         foreach ($files as $file) {
             if (file_exists($file)) {

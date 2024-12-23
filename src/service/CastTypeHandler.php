@@ -13,7 +13,7 @@ use Exception;
  */
 class CastTypeHandler
 {
-    /** @var array<string|null> */
+    /** @var array<string|null|object> */
     private array $castTypeClasses = [
         StringVariableToValue::class => null,
         GetUserHome::class => null,
