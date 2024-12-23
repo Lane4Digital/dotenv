@@ -2,6 +2,7 @@ vendor/
 tests/reports/
 
 .idea/
+.github/
 .DS_Store
 
 *.tmp
