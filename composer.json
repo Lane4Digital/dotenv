@@ -34,9 +34,9 @@
       "cp ./tools/git-pre-commit-hook.sh .git/hooks/pre-commit"
     ]
   },
-  "homepage": "https://github.com/lane4/dotenv",
+  "homepage": "https://github.com/Lane4Digital/dotenv",
   "support": {
-    "issues": "https://github.com/lane4/dotenv/issues",
+    "issues": "https://github.com/Lane4Digital/dotenv/issues",
     "email": "rolf@lane4.digital"
   },
   "keywords": ["dotenv", "env", "environment variables", "loader", "protected"]
