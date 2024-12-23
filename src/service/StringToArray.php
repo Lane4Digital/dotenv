@@ -22,7 +22,8 @@ class StringToArray
      * @param string|null $value
      * @return array<int|string, array<int|string, mixed>|string|null>|string|null
      * @throws Exception
-     */    public function __invoke(?string $value = null)
+     */
+    public function __invoke(?string $value = null)
     {
         if ($value === null) {
             return null;
