@@ -1,4 +1,4 @@
-# Jardis DotEnv
+# Lane4 DotEnv
 
 ### Ein Support-Tool zum Auslesen von .env-Dateien für globale und geschützte Kontexte
 
@@ -12,7 +12,7 @@ Die `.env*`-Dateien müssen dafür in einem Unterverzeichnis abgelegt und über 
 ## Beispielcode
 
 ```php
-use Jardis\DotEnv;
+use Land4\DotEnv\DotEnv;
 
 $dotEnv = new DotEnv();
 // Werte in $_ENV laden

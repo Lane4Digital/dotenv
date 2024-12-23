@@ -1,5 +1,5 @@
 
-# Jardis DotEnv
+# Lane4 DotEnv
 
 ### A support tool for reading .env files for global and protected contexts
 
@@ -12,7 +12,7 @@ The `.env*` files must be stored in a subdirectory and read using the method `lo
 ## Example Code
 
 ```php
-use Jardis\DotEnv;
+use Land4\DotEnv\DotEnv;
 
 $dotEnv = new DotEnv();
 // Load values into $_ENV
