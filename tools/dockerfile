@@ -1,0 +1,42 @@
+# Stage 1: Build dependencies and extensions
+ARG PHP_BASE_IMAGE
+
+FROM php:${PHP_BASE_IMAGE} AS build
+
+LABEL maintainer="Rolf Beab <rolf@lane4.digital>"
+
+RUN apk add --no-cache \
+    autoconf \
+    gcc \
+    make \
+    g++ \
+    libc-dev \
+    linux-headers \
+    curl-dev \
+    libzip-dev \
+    libxml2-dev \
+    oniguruma-dev && \
+    pecl install xdebug && docker-php-ext-enable xdebug && \
+    docker-php-ext-install pdo pdo_mysql mysqli curl soap dom zip mbstring
+
+# Stage 2: Final image
+ARG PHP_BASE_IMAGE
+
+FROM php:${PHP_BASE_IMAGE}
+
+LABEL maintainer="Rolf Beab <rolf@lane4.digital>"
+
+# Install runtime dependencies required for extensions
+RUN apk add --no-cache libzip
+
+# Copy composer from its official image
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# Copy installed extensions from the build stage
+COPY --from=build /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+COPY --from=build /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
+
+# Copy and configure php.ini
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+
+WORKDIR /app

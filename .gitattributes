@@ -1,0 +1,15 @@
+tools/ export-ignore
+vendor/ export-ignore
+tests/reports/ export-ignore
+
+Makefile export-ignore
+phpstan.neon export-ignore
+phpcs.xml export-ignore
+phpunit.xml export-ignore
+ci.yml  export-ignore
+
+.env export-ignore
+.git* export-ignore
+git* export-ignore
+.dockerignore export-ignore
+php* export-ignore

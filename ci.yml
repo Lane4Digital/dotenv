@@ -1,0 +1,54 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Run Build, QA Tools and Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Repository klonen
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. .env vorbereiten (falls benötigt)
+      - name: Create .env file
+        run: |
+          echo "PUID=$(id -u)" > .env
+          echo "PGID=$(id -g)" >> .env
+
+      # 3. Docker Compose Setup: Container bauen
+      - name: Build Docker Container
+        run: make build
+
+      # 4. Installiere Composer-Abhängigkeiten
+      - name: Install dependencies
+        run: make install
+
+      # 5. Statische Codeanalyse ausführen
+      - name: Run PHPStan (Static Analysis)
+        run: make phpstan
+
+      # 6. Überprüfe Coding Standards (PHP_CodeSniffer)
+      - name: Check Code Standards with PHPCS
+        run: make phpcs
+
+      # 7. PHPUnit Tests starten
+      - name: Run PHPUnit Tests
+        run: make phpunit
+
+      # 8. PHPUnit Tests mit Coverage starten
+      - name: Run PHPUnit Tests with Coverage
+        run: make phpunit-coverage
+
+      # 9. Docker Umgebung herunterfahren, falls erforderlich
+      - name: Tear Down Docker Environment
+        if: always()
+        run: make remove

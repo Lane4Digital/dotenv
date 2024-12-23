@@ -1,0 +1,17 @@
+services:
+  lane4-php-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+          PHP_BASE_IMAGE: ${PHP_BASE_IMAGE}
+    image: ${COMPOSE_PROJECT_NAME}-php-cli
+    container_name: ${COMPOSE_PROJECT_NAME}-php-cli
+    volumes:
+      - '../.:/app'
+    networks:
+      - default
+
+networks:
+  default:
+    name: ${COMPOSE_PROJECT_NAME}-network
