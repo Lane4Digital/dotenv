@@ -1,43 +1,43 @@
+
 # Jardis DotEnv
 
-### Ein Support-Tool zum Auslesen von .env-Dateien für globale und geschützte Kontexte
+### A support tool for reading .env files for global and protected contexts
 
-## Beschreibung
+## Description
 
-Das Lane4 DotEnv-Tool ermöglicht das Auslesen von `.env*`-Dateien gemäß der für .env Dateien vordefinierten Regeln. Die ausgelesenen Werte werden können in der globalen `$_ENV`-Variable, oder in geschützten Kontexten, wie einer Anwendungsdomäne verfügbar gemacht werden.
+The Lane4 DotEnv tool allows reading `.env*` files according to predefined rules for .env files. The read values can be made available in the global `$_ENV` variable or in protected contexts such as an application domain.
 
-Die `.env*`-Dateien müssen dafür in einem Unterverzeichnis abgelegt und über die Methode `load($path, false)` ausgelesen werden. Diese Vorgehensweise erlaubt es, abweichende Einstellungen im Vergleich zum globalen `$_ENV` vorzunehmen, ohne Wechselwirkungen zu verursachen. Dies ist besonders nützlich, wenn eine monolitische Anwendung refaktorisiert werden soll und geschützte Bereiche mit eigenen Werten innerhalb einer bestehenden Anwendung entstehen sollen.
+The `.env*` files must be stored in a subdirectory and read using the method `load($path, false)`. This approach allows different settings compared to the global `$_ENV` without causing interference. This is especially useful when refactoring a monolithic application to create protected areas with their own values within an existing application.
 
-
-## Beispielcode
+## Example Code
 
 ```php
 use Jardis\DotEnv;
 
 $dotEnv = new DotEnv();
-// Werte in $_ENV laden
+// Load values into $_ENV
 $dotEnv->load($appRootPath);
 
-// Nicht in $_ENV laden und Ergebnis als Array zurückgeben
+// Do not load into $_ENV and return the result as an array
 $domainEnv = $dotEnv->load($domainRootPath, false);
 ```
 
-## Datentypen
+## Data Types
 
-Das Tool erkennt und verarbeitet die folgenden Datentypen:
+The tool recognizes and processes the following data types:
 
 - `string`
 - `bool`
 - `numerics (int, float)`
-- `array (mit TypeCasting der Werte)`
+- `array (with type casting of values)`
 
-Eine Besonderheit ist die Unterstützung sowohl numerischer als auch assoziativer Arrays in `.env*`-Dateien.
+A special feature is the support for both numeric and associative arrays in `.env*` files.
 
 ```.env
 TYPE_INT=1
 TYPE_BOOL=true
 TYPE_STRING=teststring
-TYPE_ARRAY=[1,2,3,test=>hallo,test2=>true,test3=>[1,2,3,4]]
+TYPE_ARRAY=[1,2,3,test=>hello,test2=>true,test3=>[1,2,3,4]]
 
 DB_HOST=testHost
 DB_NAME=testName
@@ -47,35 +47,35 @@ DATABASE_URL=mysql://${DB_HOST}:${DB_NAME}@localhost
 
 ---
 
-## Lieferumfang im Github Repository
+## Content in the GitHub Repository
 
-- **SourceFile**: 
+- **Source File**:
   - src/DotEnv.php
   - tests/DotEnvTest.php
-- **Docker-basierte Umgebung**: PHP 8.3 (inkl. xDebug)
+- **Docker-based Environment**: PHP 8.3 (incl. xDebug)
   - Dockerfile
   - Docker Compose
   - .env
 - **GIT**:
   - git-pre-commit-hook.sh
-- **Support**: Makefile mit folgenden Befehlen:
-  - `make build`: Erzeugt ein PHP-CLI Docker-Image
-  - `make remove`: Entfernt hier genutzte container, images, networks, volumes und caches
-  - `make install`: Composer Installation
-  - `make update`: Composer Update
-  - `make autoload`: Composer Autoload-Dump-File
-  - `make phpcs`: Coding Style Prüfung 
-  - `make phpunit`: Ausführung aller Tests
-  - `make phpunit-reports`: Ausführung aller Tests inkl. Dokumentation
-  - `make phpunit-coverage`: Ausführung aller Tests inkl. Code Coverage auf der Konsole
-  - `make phpstan`: Vollständige Code-Analyse (level 8)
-- **Dokumentation**:
+- **Support**: Makefile with the following commands:
+  - `make build`: Builds a PHP-CLI Docker image
+  - `make remove`: Removes used containers, images, networks, volumes, and caches
+  - `make install`: Composer installation
+  - `make update`: Composer update
+  - `make autoload`: Composer autoload dump file
+  - `make phpcs`: Coding style check
+  - `make phpunit`: Runs all tests
+  - `make phpunit-reports`: Runs all tests including documentation
+  - `make phpunit-coverage`: Runs all tests including code coverage on the console
+  - `make phpstan`: Complete code analysis (level 8)
+- **Documentation**:
   - README.md
 
-Der Aufbau des DockerFiles zum erstellen des PHP Images ist etwas umfänglicher gebaut als es für dieses Tool notwendig ist, da das resultierende PHP Image in verschiedenen Lane4 Tools eingesetzt wird.
+The structure of the Dockerfile for creating the PHP image is more comprehensive than necessary for this tool, as the resulting PHP image is used in various Lane4 tools.
 
-Es wird auch darauf geachtet, das unsere Images so klein wie möglich sind und auf eurem System durch ggf. wiederholtes bauen der Images keine unnötigen Dateien verbleiben.
+We also ensure that our images are as small as possible and that no unnecessary files remain on your system after repeated image builds.
 
 ---
 
-Viel Freude bei der Nutzung!
+Enjoy using it!
