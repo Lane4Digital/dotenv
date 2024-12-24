@@ -31,7 +31,9 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "cp ./tools/git-pre-commit-hook.sh .git/hooks/pre-commit"
+      "echo '#!/usr/bin/env bash' > .git/hooks/pre-commit",
+      "echo 'bash ./tools/git-pre-commit-hook.sh' >> .git/hooks/pre-commit",
+      "chmod +x .git/hooks/pre-commit"
     ]
   },
   "homepage": "https://github.com/Lane4Digital/dotenv",
