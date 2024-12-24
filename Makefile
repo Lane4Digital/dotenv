@@ -19,13 +19,19 @@ shell: ## Run a shell inside the container
 	$(DOCKER_COMPOSE) run --rm -it lane4-php-cli sh
 .PHONY: shell
 
-build: ## Builds php image
+build: ## Build native platform php image
 	$(DOCKER_COMPOSE) build lane4-php-cli
 	@docker images --filter dangling=true -q | xargs -r docker rmi
 .PHONY: build
 
+build-multiplatform: ## Build multiplatform arm64 and amd64 php image
+	@docker buildx create --name multiarch-builder --use || true
+	@docker buildx build --platform linux/amd64,linux/arm64 -t $(DOCKER_REPO)/lane4-php-cli:latest --build-arg PHP_BASE_IMAGE=$(PHP_BASE_IMAGE) --push -f ./tools/dockerfile .
+	@docker images --filter dangling=true -q | xargs -r docker rmi
+.PHONY: build-multiplatform
+
 push: ## Pushes php image to docker repo
-	@docker push lane4digital/lane4-php-cli:latest
+	@docker push $(DOCKER_REPO)/lane4-php-cli:latest
 .PHONY: build
 
 remove: ## Stops and removes containers, images, network, volumes and caches

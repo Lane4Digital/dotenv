@@ -23,7 +23,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_PAT }}" | docker login -u "${{ secrets.DOCKER_USER_NAME }}" --password-stdin
 
       # 3. Docker image pull
-      - name: Login to docker
+      - name: Pull docker image
         run: docker pull lane4digital/lane4-php-cli:latest
 
       # 4. Installiere Composer-Abhängigkeiten
